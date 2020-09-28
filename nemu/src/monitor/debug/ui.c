@@ -3,6 +3,7 @@
 #include "monitor/watchpoint.h"
 #include "nemu.h"
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -32,6 +33,14 @@ static int cmd_c(char *args) {
 	return 0;
 }
 
+static int cmd_si(char *args) {
+       int step;
+       if(args==NULL) step=1;
+       else sscanf(args,"%d",&step);
+       cpu_exec(step);
+       return 0;
+}
+
 static int cmd_q(char *args) {
 	return -1;
 }
@@ -46,7 +55,8 @@ static struct {
 	{ "help", "Display informations about all supported commands", cmd_help },
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
-
+        { "si", "Step one instruction exactly",cmd_si },
+        
 	/* TODO: Add more commands */
 
 };
