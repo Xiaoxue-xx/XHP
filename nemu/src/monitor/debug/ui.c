@@ -60,7 +60,7 @@ static int cmd_x(char *args) {
        sscanf(args,"%d%x",&n,&EXPR);
        int i;
        for(i=0;i<n;i++){
-          printf("0x%8x 0x%x\n",EXPR+i*32,swaddr_read(EXPR+i*32,4));
+          printf("0x%8x 0x%x\n",EXPR+i*5,swaddr_read(EXPR+i*5,2));
        }
        return 0;
 }
