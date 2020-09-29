@@ -51,6 +51,20 @@ static int cmd_info(char *args) {
        return 0;
 }
 
+static int cmd_x(char *args) {
+       if(args==NULL){
+       printf("Fail!/n");
+       return 0;
+       }
+       int N,EXPR;
+       sscanf(args,"%d%x",&N,&EXPR);
+       int i;
+       for(i=0;i<N;i++){
+          printf("0x%8x 0x%x\n",EXPR+i*32,swaddr_read(EXPR+i*32,32));
+       }
+       return 0;
+}
+
 static int cmd_q(char *args) {
 	return -1;
 }
@@ -66,7 +80,9 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
         { "si", "Step one instruction exactly",cmd_si },
-        { "info", "print information",cmd_info }, 
+        { "info", "print information",cmd_info },
+        { "x", "examine 4*N bytes at address",cmd_x },
+ 
 	/* TODO: Add more commands */
 
 };
