@@ -56,11 +56,11 @@ static int cmd_x(char *args) {
        printf("Fail!/n");
        return 0;
        }
-       int N,EXPR;
-       sscanf(args,"%d%x",&N,&EXPR);
+       int n,EXPR;
+       sscanf(args,"%d%x",&n,&EXPR);
        int i;
-       for(i=0;i<N;i++){
-          printf("0x%8x 0x%x\n",EXPR+i*32,swaddr_read(EXPR+i*32,32));
+       for(i=0;i<n;i++){
+          printf("0x%8x 0x%x\n",EXPR+i*32,swaddr_read(EXPR+i*32,4));
        }
        return 0;
 }
