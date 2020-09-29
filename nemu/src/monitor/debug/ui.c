@@ -40,6 +40,16 @@ static int cmd_si(char *args) {
        cpu_exec(step);
        return 0;
 }
+static int cmd_info(char *args) {
+       if(args[0]=='r') {
+            int i;
+            for(i=R_EAX; i<=R_EDI; i++) {
+               printf("$%s\t0x%08x\n",regsl[i],reg_l(i));
+            }
+            printf("$eip\t0x%08x\n",cpu.eip);
+       }
+       return 0;
+}
 
 static int cmd_q(char *args) {
 	return -1;
@@ -56,7 +66,7 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
         { "si", "Step one instruction exactly",cmd_si },
-        { "info", "",cmd_info }; 
+        { "info", "print information",cmd_info }, 
 	/* TODO: Add more commands */
 
 };
