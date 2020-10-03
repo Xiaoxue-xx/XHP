@@ -253,6 +253,16 @@ int eval(int p, int q){
           return eval(p+1,q-1);
         }
         else {
+	  if((q-p==1)&&tokens[p].type=='-')
+		return 0-eval(q,q);
+	  if(((q-p==1)||(tokens[p+1].type=='('&&tokens[q].type==')'))&&tokens[p].type==264){
+		num=eval(p+1,q);
+		return !num;
+	}
+//          if(((q-p==1)||(tokens[p+1].type=='('&&tokens[q].type==')'))&&tokens[p].type=='*'){
+  //              return vaddr_read(eval(p+1,q),4);
+    //    }
+
           int op=dominant_op(p,q);
           int val1=eval(p,op-1);
           int val2=eval(op+1,q);
