@@ -135,7 +135,7 @@ int pri(int a){
 			case '-':return 4;break;
 			case '*':return 3;break;
 			case '/':return 3;break;
-			default:return -1;break;
+			default:assert(0);break;
 		}
 	return -1;
 	}
@@ -161,12 +161,13 @@ int dominant_op(int p, int q) {
 			op=i;
 		}
 	}
+	printf("%d",op);
 	return op;
 }
 
 int eval(int p, int q){
         if(p>q) {
-           return 0;
+           assert(0);
         }
         else if(p == q){
            if(tokens[p].type==230){
@@ -174,7 +175,7 @@ int eval(int p, int q){
                 sscanf(tokens[p].str,"%d",&num);
                 return num;
                 }
-		return 0;
+		return -1;
         }
         else if(check_parentheses(p,q)==true) {
           return eval(p+1,q-1);
