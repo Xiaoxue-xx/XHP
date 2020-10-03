@@ -129,24 +129,37 @@ bool check_parentheses(int p,int q){
 	return true;        
 }
 
+int pri(int a){
+		switch(tokens[a].type){
+			case '+':return 4;break;
+			case '-':return 4;break;
+			case '*':return 3;break;
+			case '/':return 3;break;
+			default:assert(0);break;
+		}
+	return -1;
+	}
+
 int dominant_op(int p, int q) {
-          int i,op=0,k=0;
-          for(i=p;i<=q;i--){
+          int i,op=p,k=0;
+	  int pr=-1;
+          for(i=p;i<=q;i++){
                 if(tokens[i].type=='('){
                         k++;
+			i++;
+			while(1){
+				if(tokens[i].type == '(') k++;
+				else if(tokens[i].type==')')k--;
+				i++;
+				if(k==0)break;
+			}
+			if(i>q)break;
                 }
-                if(tokens[i].type==')'){
-                        k--;
-                }
-                if(k==0&&(tokens[i].type=='*'||tokens[i].type=='/')){
-                        int a=i;
-                        if(i==q&&op==0){
-                        op=a;
-                        }
-                }
-                if((tokens[i].type=='+'||tokens[i].type=='-')&&k==0){
-                        op=i;
-                }
+		else if(tokens[i].type ==230)continue;
+		else if(pri(i)>pr){
+			pr=pri(i);
+			op=i;
+		}
 	}
 	return op;
 }
@@ -194,4 +207,3 @@ uint32_t expr(char *e, bool *success) {
 	panic("please implement me");
 	return 0;
 }
-
