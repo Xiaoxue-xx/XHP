@@ -165,7 +165,7 @@ int pri(int a){
 			case 263:return 12;break;
 			default:assert(0);break;
 		}
-	return -1;
+	return -2;
 	}
 
 int dominant_op(int p, int q) {
@@ -185,7 +185,7 @@ int dominant_op(int p, int q) {
 			}
 		}
 		else if(tokens[i].type ==230)continue;
-		else if(pri(i)>pr){
+		else if(pri(i)>=pr){
 			pr=pri(i);
 			op=i;
 		}
