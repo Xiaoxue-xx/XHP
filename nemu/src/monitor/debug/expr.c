@@ -141,20 +141,21 @@ int pri(int a){
 	}
 
 int dominant_op(int p, int q) {
-          int i,op=p,k=0;
+          int i,j,op=p,k=0;
 	  int pr=-1;
           for(i=p;i<=q;i++){
                 if(tokens[i].type=='('){
                         k++;
 			i++;
-			while(1){
-				if(tokens[i].type == '(') k++;
-				else if(tokens[i].type==')')k--;
-				i++;
-				if(k==0)break;
+			for(j=i+1;j<=q;j++){
+				if(tokens[j].type=='(') k++;
+				if(tokens[j].type==')') k++;
+				if(k==0) {
+					i=j;
+					break;
+				}
 			}
-			if(i>q)break;
-                }
+		}
 		else if(tokens[i].type ==230)continue;
 		else if(pri(i)>pr){
 			pr=pri(i);
