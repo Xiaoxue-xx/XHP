@@ -135,7 +135,7 @@ int pri(int a){
 			case '-':return 4;break;
 			case '*':return 3;break;
 			case '/':return 3;break;
-			default:assert(0);break;
+			default:return -1;break;
 		}
 	return -1;
 	}
@@ -166,7 +166,7 @@ int dominant_op(int p, int q) {
 
 int eval(int p, int q){
         if(p>q) {
-           assert(0);
+           return 0;
         }
         else if(p == q){
            if(tokens[p].type==230){
