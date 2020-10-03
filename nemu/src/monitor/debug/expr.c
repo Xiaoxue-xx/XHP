@@ -177,6 +177,7 @@ int eval(int p, int q){
 		return -3;
         }
         else if(check_parentheses(p,q)==true) {
+	  printf("true");
           return eval(p+1,q-1);
         }
         else {
