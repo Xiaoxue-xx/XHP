@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ=260, NUMBER = 230, UEQ=261, logical_AND=262, logical_OR=263,logical_NOT=264,REGISTER=265,VARIABLE=266,HEX=267,EIP=268
+	NOTYPE = 256, EQ=260, NUMBER = 230, UEQ=261, logical_AND=262, logical_OR=263,logical_NOT=264,REGISTER=265,VARIABLE=266,HEX=267,EIP=268,POINT=269
 	/* TODO: Add more token types */
 
 };
@@ -164,6 +164,7 @@ int pri(int a){
 			case 262:return 11;break;
 			case 263:return 12;break;
 			case 264:return 2;break;
+			case 269:return 2;break;
 			default:assert(0);break;
 		}
 	return -2;
@@ -261,8 +262,9 @@ int eval(int p, int q){
 		return !num;
 	}
 //          if(((q-p==1)||(tokens[p+1].type=='('&&tokens[q].type==')'))&&tokens[p].type=='*'){
-  //              return vaddr_read(eval(p+1,q),4);
-    //    }
+  //              tokens[p].type=269;
+ //		return vaddr_read(eval(p+1,q),4);
+   //     }
 
           int op=dominant_op(p,q);
           int val1=eval(p,op-1);
