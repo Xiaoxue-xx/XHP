@@ -7,8 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ, NUMBER = 230
-
+	NOTYPE = 256, EQ=260, NUMBER = 230, UEQ=261, logical_AND=262, logical_OR=263,logical_NOT=264,REGISTER=265,VARIABLE=266,HEX=267,EIP=268
 	/* TODO: Add more token types */
 
 };
@@ -30,7 +29,15 @@ static struct rule {
         {"\\(", '('},                                   // ( 40
         {"\\)", ')'},                                   // ) 41
         {"\\b[0-9]+\\b", NUMBER},                       //number
-	{"==", EQ}						// equal
+	{"==", EQ},						// equal
+	{"!=",UEQ},
+	{"&&", logical_AND},
+	{"\\|\\|", logical_OR},
+	{"!", logical_NOT},
+	{"0[xX][A-Fa-f0-9]{1,8}",HEX},
+	{"\\$[a-dA-D][hlHL]|\\$[eE]?(ax|dx|cx|bx|bp|si|di|sp)",REGISTER},
+	{"\\[Ee][Ii][Pp]",EIP},
+	{"[a-zA-Z_][a-zA-Z0-9_]*",VARIABLE}
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -91,7 +98,24 @@ static bool make_token(char *e) {
                                        case '/':tokens[nr_token].type='/';break;
                                        case '(':tokens[nr_token].type='(';break;
                                        case ')':tokens[nr_token].type=')';break;
-                                       case 256:break;
+                                       case 260:tokens[nr_token].type=260;strcpy(tokens[nr_token].str,"==");break;
+				       case 261:tokens[nr_token].type=261;strcpy(tokens[nr_token].str,"!=");break;
+                                       case 262:tokens[nr_token].type=262;strcpy
+(tokens[nr_token].str,"&&");break;
+                                       case 263:tokens[nr_token].type=263;strcpy
+(tokens[nr_token].str,"||");break;
+				       case 264:tokens[nr_token].type=264;break;
+                                       case 265:tokens[nr_token].type=265;
+strncpy(tokens[nr_token].str,substr_start,substr_len);
+break;
+                                       case 266:tokens[nr_token].type=266;
+strncpy(tokens[nr_token].str,substr_start,substr_len);
+break;
+                                       case 267:tokens[nr_token].type=267;
+strncpy(tokens[nr_token].str,substr_start,substr_len);
+break;
+				       case 268:tokens[nr_token].type=268;break;
+				       case 256:break;
                                        case 230:tokens[nr_token].type=230;
 strncpy(tokens[nr_token].str,substr_start,substr_len);
 break;
@@ -135,6 +159,10 @@ int pri(int a){
 			case '-':return 4;break;
 			case '*':return 3;break;
 			case '/':return 3;break;
+			case 260:return 7;break;
+			case 261:return 7;break;
+			case 262:return 11;break;
+			case 263:return 12;break;
 			default:assert(0);break;
 		}
 	return -1;
@@ -168,15 +196,56 @@ int dominant_op(int p, int q) {
 }
 
 int eval(int p, int q){
+	int num=0;
         if(p>q) {
            assert(0);
         }
         else if(p == q){
            if(tokens[p].type==230){
-                int num;
                 sscanf(tokens[p].str,"%d",&num);
                 return num;
                 }
+	  else if(tokens[p].type==267){
+		sscanf(tokens[p].str,"%x",&num);
+		return num;
+		}
+	  else if(tokens[p].type==265){
+            	int j=0,sl=1,sw=1;
+		for(;j<8&&sl!=0&&sw!=0;j++){
+			sl=strcmp(tokens[p].str+1,regsl[j]);
+			sw=strcmp(tokens[p].str+1,regsw[j]);
+		}
+		if(sl==0)
+		{
+			num=cpu.gpr[j]._32;
+			return num;
+		}
+		else if(sw==0)
+			return cpu.gpr[j]._16;
+		else {
+			if(strcmp(tokens[p].str,"$al")==0)
+				return reg_b(0);
+                       if(strcmp(tokens[p].str+1,"cl")==0)
+                                return reg_b(1);
+                       if(strcmp(tokens[p].str+1,"dl")==0)
+                                return reg_b(2);
+                       if(strcmp(tokens[p].str+1,"bl")==0)
+                                return reg_b(3);
+                       if(strcmp(tokens[p].str+1,"ah")==0)
+                                return reg_b(4);
+                       if(strcmp(tokens[p].str+1,"ch")==0)
+                                return reg_b(5);
+                       if(strcmp(tokens[p].str+1,"dh")==0)
+                                return reg_b(6);
+                       if(strcmp(tokens[p].str+1,"bh")==0)
+                                return reg_b(7);
+		}
+		if(j==8)
+			assert(0);
+	}
+	else if(tokens[p].type==268)
+		return cpu.eip;
+	else
 		assert(0);
         }
         else if(check_parentheses(p,q)==true) {
@@ -193,9 +262,30 @@ int eval(int p, int q){
           case '-':return val1-val2;
           case '*':return val1*val2;
           case '/':return val1/val2;
+	  case 260:
+		if(val1==val2)
+			return 1;
+		else
+			return 0;
+	  case 261:
+		if(val1!=val2)
+			return 1;
+		else
+			return 0;
+	  case 262:
+		if(val1&&val2)
+			return 1;
+		else
+			return 0;
+	  case 263:
+		if(val1||val2)
+			return 1;
+		else
+ 			return 0;
           default:assert(0);
         }
       }
+	return 0;
     }
 
 uint32_t expr(char *e, bool *success) {
