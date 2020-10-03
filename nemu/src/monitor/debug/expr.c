@@ -174,7 +174,7 @@ int eval(int p, int q){
                 sscanf(tokens[p].str,"%d",&num);
                 return num;
                 }
-           assert(0);
+		return 0;
         }
         else if(check_parentheses(p,q)==true) {
           return eval(p+1,q-1);
