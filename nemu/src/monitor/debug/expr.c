@@ -161,6 +161,7 @@ int dominant_op(int p, int q) {
 			op=i;
 		}
 	}
+	printf("%d%d",p,op);
 	printf("%c",tokens[op].type);
 	return op;
 }
