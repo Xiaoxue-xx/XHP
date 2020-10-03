@@ -149,7 +149,7 @@ int dominant_op(int p, int q) {
 			i++;
 			for(j=i+1;j<=q;j++){
 				if(tokens[j].type=='(') k++;
-				if(tokens[j].type==')') k++;
+				if(tokens[j].type==')') k--;
 				if(k==0) {
 					i=j;
 					break;
