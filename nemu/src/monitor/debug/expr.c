@@ -180,7 +180,7 @@ int eval(int p, int q){
 		assert(0);
         }
         else if(check_parentheses(p,q)==true) {
-	  printf("true");
+//	  printf("true");
           return eval(p+1,q-1);
         }
         else {
