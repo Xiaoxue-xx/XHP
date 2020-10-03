@@ -135,7 +135,7 @@ int pri(int a){
 			case '-':return 4;break;
 			case '*':return 3;break;
 			case '/':return 3;break;
-			default:assert(0);break;
+			default:return -2;break;
 		}
 	return -1;
 	}
@@ -167,7 +167,7 @@ int dominant_op(int p, int q) {
 
 int eval(int p, int q){
         if(p>q) {
-           assert(0);
+           return -1;
         }
         else if(p == q){
            if(tokens[p].type==230){
@@ -175,7 +175,7 @@ int eval(int p, int q){
                 sscanf(tokens[p].str,"%d",&num);
                 return num;
                 }
-		return -1;
+		return -3;
         }
         else if(check_parentheses(p,q)==true) {
           return eval(p+1,q-1);
