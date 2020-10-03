@@ -99,7 +99,7 @@ strncpy(tokens[nr_token].str,substr_start,substr_len);
 break;
 					default: panic("please implement me");
 				}
-
+				nr_token++;
 				break;
 			}
 		}
@@ -113,12 +113,79 @@ break;
 	return true; 
 }
 
+bool check_parentheses(int p,int q){
+        int i,cnt=0;
+        for(i=p;i<=q;i++){
+                if(tokens[i].type=='(')
+                        cnt++;
+                else if(tokens[i].type==')')
+                        cnt--;
+                if((cnt==0)&&(i!=p)&&(i!=q)){
+                        return false;
+                }
+                if((cnt==0)&&(i==q))
+                        return true;
+        }
+                        return false;        
+}
+
+int eval(int p, int q){
+        if(p>q) {
+           return 0;
+        }
+        else if(p == q){
+           if(tokens[p].type==230){
+                int num;
+                sscanf(tokens[p].str,"%d",&num);
+                return num;
+                }
+           return 0;
+        }
+        else if(check_parentheses(p,q)==true) {
+          return eval(p+1,q-1);
+        }
+        else {
+          int i,k=0,op=0;
+          for(i=p;i<=q;i--){
+                if(tokens[i].type=='('){
+                        k++;
+                }
+                if(tokens[i].type==')'){
+                        k--;
+                }
+                if(k==0&&(tokens[i].type=='*'||tokens[i].type=='/')){
+                        int a=i;
+                        if(i==q&&op==0){
+                        op=a;
+                        }
+                }
+                if((tokens[i].type=='+'||tokens[i].type=='-')&&k==0){
+                        op=i;
+                }
+
+        }
+          int val1=eval(p,op-1);
+          int val2=eval(op+1,q);
+
+        switch(tokens[op].type) {
+          case '+':return val1+val2;
+          case '-':return val1-val2;
+          case '*':return val1*val2;
+          case '/':return val1/val2;
+          default:assert(0);
+        }
+      }
+    }
+
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
 		return 0;
 	}
-
+        if(make_token(e)) {
+    		*success = true;
+		return eval(0,nr_token);
+	}
 	/* TODO: Insert codes to evaluate the expression. */
 	panic("please implement me");
 	return 0;

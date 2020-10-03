@@ -64,6 +64,10 @@ static int cmd_x(char *args) {
        }
        return 0;
 }
+static int cmd_p(char *args) {
+       bool *success=false;
+       return expr(args,success);
+}
 
 static int cmd_q(char *args) {
 	return -1;
@@ -80,8 +84,9 @@ static struct {
 	{ "c", "Continue the execution of the program", cmd_c },
 	{ "q", "Exit NEMU", cmd_q },
         { "si", "Step one instruction exactly",cmd_si },
-        { "info", "print information",cmd_info },
-        { "x", "examine 4*N bytes at address",cmd_x },
+        { "info", "Print information",cmd_info },
+        { "x", "Examine 4*N bytes at address",cmd_x },
+        { "p", "Evaluate expression",cmd_p},
  
 	/* TODO: Add more commands */
 
