@@ -99,7 +99,6 @@ strncpy(tokens[nr_token].str,substr_start,substr_len);
 break;
 					default: panic("please implement me");
 				}
-				nr_token++;
 				break;
 			}
 		}
