@@ -163,6 +163,7 @@ int pri(int a){
 			case 261:return 7;break;
 			case 262:return 11;break;
 			case 263:return 12;break;
+			case 264:return 2;break;
 			default:assert(0);break;
 		}
 	return -2;
