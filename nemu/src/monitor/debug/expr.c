@@ -161,7 +161,6 @@ int dominant_op(int p, int q) {
 			op=i;
 		}
 	}
-	printf("%d",op);
 	return op;
 }
 
