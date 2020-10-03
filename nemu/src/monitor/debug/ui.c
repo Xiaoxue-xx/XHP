@@ -65,8 +65,10 @@ static int cmd_x(char *args) {
        return 0;
 }
 static int cmd_p(char *args) {
-       bool *success=false;
-       return expr(args,success);
+       bool success;
+       int i=expr(args,&success);
+	printf("%d\n",i);
+	return 0;
 }
 
 static int cmd_q(char *args) {
