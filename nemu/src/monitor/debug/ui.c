@@ -40,6 +40,7 @@ static int cmd_si(char *args) {
        cpu_exec(step);
        return 0;
 }
+
 static int cmd_info(char *args) {
        if(args[0]=='r') {
             int i;
@@ -70,6 +71,23 @@ static int cmd_p(char *args) {
 	printf("%d\n",i);
 	return 0;
 }
+static int cmd_w(char *args){
+	if(args==NULL)
+		printf("Invalid command!\n");
+	else
+		new_wp(args);
+	return 0;
+}
+
+static int cmd_d(char *args){
+	if(args==NULL)
+		printf("Invalid command!\n");
+	else{
+		int number=atoi(args);
+		free_wp(number);
+	}
+	return 0;	
+}
 
 static int cmd_q(char *args) {
 	return -1;
@@ -89,7 +107,8 @@ static struct {
         { "info", "Print information",cmd_info },
         { "x", "Examine 4*N bytes at address",cmd_x },
         { "p", "Evaluate expression",cmd_p},
- 
+        { "w", "Set watch point",cmd_w},
+	{ "d", "Delete watch point",cmd_d},
 	/* TODO: Add more commands */
 
 };

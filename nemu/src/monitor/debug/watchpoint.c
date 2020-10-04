@@ -87,3 +87,17 @@ void free_wp(int number){
 	return;
 }
 
+int judge_wp(){
+	WP* p;
+	bool success;
+	p=head;
+	if(p==NULL)
+		return 0;
+	while(p){
+		p->newvalue=expr(p->str,&success);
+		if(p->newvalue!=p->value)
+			return -1;
+		p=p->next;
+	}
+	return 0;
+}
