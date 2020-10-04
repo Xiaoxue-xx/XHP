@@ -36,7 +36,7 @@ static int cmd_c(char *args) {
 static int cmd_si(char *args) {
        int step;
        if(args==NULL) step=1;
-       else sscanf(args,"%d",&step);
+       else step=atoi(strtok(NULL," "));
        cpu_exec(step);
        return 0;
 }
