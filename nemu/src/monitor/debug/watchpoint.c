@@ -101,3 +101,11 @@ int judge_wp(){
 	}
 	return 0;
 }
+
+void print_wp(){
+	printf("Num\tType\tEnb \t\t Value\t\t What\n");
+	int i;
+	for(i=0;i<NR_WP;i++){
+		printf("%4d\t%c\t%c\t\t0x%x\t%s\n",wp_pool[i].NO,wp_pool[i].type,wp_pool[i].Enb,wp_pool[i].value,wp_pool[i].str);
+}
+}
