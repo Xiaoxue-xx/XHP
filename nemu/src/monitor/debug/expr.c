@@ -261,10 +261,10 @@ int eval(int p, int q){
 		num=eval(p+1,q);
 		return !num;
 	}
-//          if(((q-p==1)||(tokens[p+1].type=='('&&tokens[q].type==')'))&&tokens[p].type=='*'){
-  //              tokens[p].type=269;
- //		return vaddr_read(eval(p+1,q),4);
-   //     }
+          if(((q-p==1)||(tokens[p+1].type=='('&&tokens[q].type==')'))&&tokens[p].type=='*'){
+                tokens[p].type=269;
+ 		return swaddr_read(eval(p+1,q),4);
+        }
 
           int op=dominant_op(p,q);
           int val1=eval(p,op-1);
