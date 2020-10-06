@@ -258,7 +258,7 @@ int eval(int p, int q){
           return eval(p+1,q-1);
         }
         else {
-	  if((q-p==1)&&tokens[p].type=='-')
+	  if((q-p==1)&&tokens[p].type==270)
 		return 0-eval(q,q);
 	  if(((q-p==1)||(tokens[p+1].type=='('&&tokens[q].type==')'))&&tokens[p].type==264){
 		num=eval(p+1,q);
