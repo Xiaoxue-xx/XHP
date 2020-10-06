@@ -191,12 +191,12 @@ int dominant_op(int p, int q) {
 		else if(tokens[i].type ==230)continue;
 		else if(pri(i)>=pr){
 			pr=pri(i);
-			printf("%d\n",pr);
+//			printf("%d\n",pr);
 			op=i;
 		}
 	}
-	printf("%d%d%d\n",p,op,q);
-       	printf("%c\n",tokens[op].type);
+//	printf("%d%d%d\n",p,op,q);
+  //     	printf("%c\n",tokens[op].type);
 	return op;
 }
 
@@ -258,8 +258,8 @@ int eval(int p, int q){
           return eval(p+1,q-1);
         }
         else {
-//	  if((q-p==1)&&tokens[p].type==270)
-//		return 0-eval(q,q);
+	  if((q-p==1)&&tokens[p].type==270)
+		return 0-eval(q,q);
 	  if(((q-p==1)||(tokens[p+1].type=='('&&tokens[q].type==')'))&&tokens[p].type==264){
 		num=eval(p+1,q);
 		return !num;
@@ -298,7 +298,6 @@ int eval(int p, int q){
 			return 1;
 		else
  			return 0;
-	  case 270:return 0-val2;
           default:assert(0);
         }
       }
