@@ -165,7 +165,7 @@ int pri(int a){
 			case 263:return 12;break;
 			case 264:return 2;break;
 			case 269:return 2;break;
-			default:return -2;break;
+			default:assert(0);break;
 		}
 	return -2;
 	}
