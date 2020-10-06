@@ -192,12 +192,12 @@ int dominant_op(int p, int q) {
 		else if(tokens[i].type ==230)continue;
 		else if(pri(i)>=pr){
 			pr=pri(i);
-			printf("%d\n",pr);
+//			printf("%d\n",pr);
 			op=i;
 		}
 	}
-	printf("%d%d%d\n",p,op,q);
-       	printf("%c\n",tokens[op].type);
+//	printf("%d%d%d\n",p,op,q);
+  //     	printf("%c\n",tokens[op].type);
 	return op;
 }
 
@@ -266,32 +266,32 @@ int eval(int p, int q){
 //			ab=0-ab;
 //		return ab;
 //	}
-//	  if((q-p==1)&&tokens[p].type==270)
-//		return 0-eval(q,q);
+	  if((q-p==1)&&tokens[p].type==270)
+		return 0-eval(q,q);
 	  if(((q-p==1)||(tokens[p+1].type=='('&&tokens[q].type==')'))&&tokens[p].type==264){
 		num=eval(p+1,q);
 		return !num;
 	}
-//          if(((q-p==1)||(tokens[p+1].type=='('&&tokens[q].type==')'))&&tokens[p].type=='*'){
-  //              tokens[p].type=269;
- //		return swaddr_read(eval(p+1,q),4);
-   //     }
+          if(((q-p==1)||(tokens[p+1].type=='('&&tokens[q].type==')'))&&tokens[p].type=='*'){
+                tokens[p].type=269;
+ 		return swaddr_read(eval(p+1,q),4);
+        }
 
           int op=dominant_op(p,q);
-        if(tokens[p].type==270){
-                int ab=eval(q,q);
-                int i;
-                for(i=op;i>=p;i--){
-			if(tokens[i].type==270)
-                        ab=0-ab;
-			else{
-			op=i;
-			break;
-			}
-		}
-		if(op==p)
-                return ab;
-        }
+        //if(tokens[p].type==270){
+      //          int ab=eval(q,q);
+    //            int i;
+  //              for(i=op;i>=p;i--){
+//			if(tokens[i].type==270)
+  //                      ab=0-ab;
+//			else{
+//			op=i;
+//			break;
+//			}
+//		}
+//		if(op==p)
+     //           return ab;
+   //     }
 
           int val1=eval(p,op-1);
           int val2=eval(op+1,q);
