@@ -167,7 +167,7 @@ int pri(int a){
 			case 263:return 12;break;
 			case 264:return 2;break;
 			case 269:return 2;break;
-			default:return -2;break;
+			default:assert(0);break;
 		}
 	return -2;
 	}
@@ -190,12 +190,12 @@ int dominant_op(int p, int q) {
 		else if(tokens[i].type ==230)continue;
 		else if(pri(i)>=pr){
 			pr=pri(i);
-			printf("%d\n",pr);
+		//	printf("%d\n",pr);
 			op=i;
 		}
 	}
-	printf("%d%d%d\n",p,op,q);
-       	printf("%c\n",tokens[op].type);
+//	printf("%d%d%d\n",p,op,q);
+  //     	printf("%c\n",tokens[op].type);
 	return op;
 }
 
