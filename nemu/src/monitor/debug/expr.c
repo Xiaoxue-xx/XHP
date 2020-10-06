@@ -189,7 +189,7 @@ int dominant_op(int p, int q) {
 		else if(tokens[i].type ==230)continue;
 		else if(pri(i)>=pr){
 			pr=pri(i);
-			printf("%d",pr);
+			printf("%d\n",pr);
 			op=i;
 		}
 	}
