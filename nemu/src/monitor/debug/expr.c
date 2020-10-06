@@ -93,7 +93,8 @@ static bool make_token(char *e) {
 
 				switch(rules[i].token_type) {
                                        case '+':tokens[nr_token].type='+';break;
-                                       case '-':if(tokens[nr_token-1].type!=230)tokens[nr_token].type=270;else tokens[nr_token].type='-';break;
+                                       case '-':if(tokens[nr_token-1].type!=230&&tokens[nr_token-1].type!=')')tokens[nr_token].type=270;
+else tokens[nr_token].type='-';break;
                                        case '*':tokens[nr_token].type='*';break;
                                        case '/':tokens[nr_token].type='/';break;
                                        case '(':tokens[nr_token].type='(';break;
