@@ -155,6 +155,8 @@ bool check_parentheses(int p,int q){
 
 int pri(int a){
 		switch(tokens[a].type){
+			case '(':return 1;break;
+			case ')':return 1;break;
 			case '+':return 4;break;
 			case '-':return 4;break;
 			case '*':return 3;break;
