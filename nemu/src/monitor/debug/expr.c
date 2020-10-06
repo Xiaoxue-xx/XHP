@@ -196,8 +196,8 @@ int dominant_op(int p, int q) {
 			op=i;
 		}
 	}
-	printf("%d%d%d\n",p,op,q);
-       	printf("%c\n",tokens[op].type);
+//	printf("%d%d%d\n",p,op,q);
+  //     	printf("%c\n",tokens[op].type);
 	return op;
 }
 
