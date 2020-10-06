@@ -7,7 +7,7 @@
 #include <regex.h>
 
 enum {
-	NOTYPE = 256, EQ=260, NUMBER = 230, UEQ=261, logical_AND=262, logical_OR=263,logical_NOT=264,REGISTER=265,VARIABLE=266,HEX=267,EIP=268,POINT=269
+	NOTYPE = 256, EQ=260, NUMBER = 230, UEQ=261, logical_AND=262, logical_OR=263,logical_NOT=264,REGISTER=265,VARIABLE=266,HEX=267,EIP=268,POINT=269,NEG=270
 	/* TODO: Add more token types */
 
 };
@@ -93,7 +93,7 @@ static bool make_token(char *e) {
 
 				switch(rules[i].token_type) {
                                        case '+':tokens[nr_token].type='+';break;
-                                       case '-':tokens[nr_token].type='-';break;
+                                       case '-':if(tokens[nr_token-1].type!=230)tokens[nr_token].type=270;else tokens[nr_token].type='-';break;
                                        case '*':tokens[nr_token].type='*';break;
                                        case '/':tokens[nr_token].type='/';break;
                                        case '(':tokens[nr_token].type='(';break;
@@ -167,6 +167,7 @@ int pri(int a){
 			case 263:return 12;break;
 			case 264:return 2;break;
 			case 269:return 2;break;
+			case 270:return 2;break;
 			default:assert(0);break;
 		}
 	return -2;
@@ -297,6 +298,7 @@ int eval(int p, int q){
 			return 1;
 		else
  			return 0;
+	  case 270:return 0-val2;
           default:assert(0);
         }
       }
