@@ -93,7 +93,7 @@ static bool make_token(char *e) {
 
 				switch(rules[i].token_type) {
                                        case '+':tokens[nr_token].type='+';break;
-                                       case '-':if(tokens[nr_token-1].type!=230&&tokens[nr_token-1].type!=')')tokens[nr_token].type=270;
+                                       case '-':if(tokens[nr_token-1].type!=230&&tokens[nr_token-1].type!=')'&&tokens[nr_token-1].type!=267&&tokens[nr_token-1].type!=265&&tokens[nr_token-1].type!=266)tokens[nr_token].type=270;
 else tokens[nr_token].type='-';break;
                                        case '*':tokens[nr_token].type='*';break;
                                        case '/':tokens[nr_token].type='/';break;
@@ -278,21 +278,6 @@ int eval(int p, int q){
         }
 
           int op=dominant_op(p,q);
-        //if(tokens[p].type==270){
-      //          int ab=eval(q,q);
-    //            int i;
-  //              for(i=op;i>=p;i--){
-//			if(tokens[i].type==270)
-  //                      ab=0-ab;
-//			else{
-//			op=i;
-//			break;
-//			}
-//		}
-//		if(op==p)
-     //           return ab;
-   //     }
-
           int val1=eval(p,op-1);
           int val2=eval(op+1,q);
 
