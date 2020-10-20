@@ -17,7 +17,7 @@ static void do_execute(){
 	MEM_W(REG(R_ESP),0);
 	REG(R_ESP)+=DATA_BYTE;
 	}
-	print_asm_template1();
+	print_asm_no_template1();
 }
 
 #if DATA_BYTE ==2 ||DATA_BYTE ==4
