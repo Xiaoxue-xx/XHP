@@ -30,6 +30,7 @@
 #include "control/je.h"
 #include "control/ret.h"
 #include "control/jmp.h"
+#include "control/jbe.h"
 
 #include "string/rep.h"
 
