@@ -29,6 +29,7 @@
 #include "control/call.h"
 #include "control/je.h"
 #include "control/ret.h"
+#include "control/jmp.h"
 
 #include "string/rep.h"
 
