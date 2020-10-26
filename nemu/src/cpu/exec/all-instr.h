@@ -37,6 +37,7 @@
 #include "control/jmp.h"
 #include "control/jbe.h"
 #include "control/jne.h"
+#include "control/jle.h"
 
 #include "string/rep.h"
 
