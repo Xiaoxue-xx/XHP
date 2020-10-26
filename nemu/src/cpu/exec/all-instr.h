@@ -39,6 +39,7 @@
 #include "control/jne.h"
 #include "control/jle.h"
 #include "control/jg.h"
+#include "control/jl.h"
 
 #include "string/rep.h"
 
