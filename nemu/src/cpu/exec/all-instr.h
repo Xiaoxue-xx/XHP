@@ -7,6 +7,7 @@
 #include "data-mov/lea.h"
 #include "data-mov/leave.h"
 #include "data-mov/movzx.h"
+#include "data-mov/movsx.h"
 
 #include "arith/dec.h"
 #include "arith/inc.h"
@@ -44,6 +45,7 @@
 
 #include "string/rep.h"
 #include "string/stos.h"
+#include "string/movs.h"
 
 #include "misc/misc.h"
 
