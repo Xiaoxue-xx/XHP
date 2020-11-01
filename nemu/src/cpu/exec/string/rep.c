@@ -25,7 +25,7 @@ make_helper(rep) {
 				|| ops_decoded.opcode == 0xaf	// scasw
 				);
 
-			if(cpu.ZF==1)break;
+			if(cpu.ZF==0)break;
 			/* TODO: Jump out of the while loop if necessary. */
 
 		}
@@ -54,7 +54,7 @@ make_helper(repnz) {
 			  );
 
 		/* TODO: Jump out of the while loop if necessary. */
-		if(cpu.ZF==0)break;
+		if(cpu.ZF==1)break;
 	}
 
 #ifdef DEBUG
