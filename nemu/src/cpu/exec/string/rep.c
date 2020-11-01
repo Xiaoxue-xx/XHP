@@ -25,7 +25,7 @@ make_helper(rep) {
 				|| ops_decoded.opcode == 0xaf	// scasw
 				);
 
-			if(cpu.ZF==0)break;
+			if(cpu.ZF==1)break;
 			/* TODO: Jump out of the while loop if necessary. */
 
 		}
