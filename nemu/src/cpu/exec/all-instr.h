@@ -43,6 +43,7 @@
 #include "control/jle.h"
 #include "control/jg.h"
 #include "control/jl.h"
+#include "control/js.h"
 
 #include "string/rep.h"
 #include "string/stos.h"
