@@ -44,6 +44,7 @@
 #include "control/jg.h"
 #include "control/jl.h"
 #include "control/js.h"
+#include "control/jns.h"
 
 #include "string/rep.h"
 #include "string/stos.h"
