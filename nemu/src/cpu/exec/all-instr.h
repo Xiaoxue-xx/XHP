@@ -54,4 +54,6 @@
 
 #include "misc/misc.h"
 
+#include "intr/int.h"
+
 #include "special/special.h"
