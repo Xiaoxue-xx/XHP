@@ -3,10 +3,12 @@
 
 static void do_execute(){
 	DATA_TYPE_S displacement = op_src->val;
-	print_asm("je %x",cpu.eip+displacement+DATA_BYTE+1);
+//	print_asm("je %x",cpu.eip+displacement+DATA_BYTE+1);
 	if(cpu.ZF == 1){
 		cpu.eip=cpu.eip+displacement;
 	}
+        print_asm("je %x",cpu.eip+displacement+DATA_BYTE+1);
+
 }
 make_instr_helper(i)
 
