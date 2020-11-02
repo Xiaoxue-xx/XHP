@@ -10,7 +10,7 @@ static void do_execute(){
         cpu.eip&=0xffff;
 #endif
 }
-       print_asm("ja %x",cpu.eip+1+DATA_BYTE);
+       print_asm("jbe %x",cpu.eip+1+DATA_BYTE);
 
 }
 make_instr_helper(i)
