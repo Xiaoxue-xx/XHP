@@ -27,29 +27,6 @@ make_helper(concat(shrdi_, SUFFIX)) {
 	do_execute();
 	return len + 1;
 }
-
-/*static void do_execute_cl () {
-	DATA_TYPE in=op_dest->val;
-	DATA_TYPE out=op_src->val;
-	uint8_t count=reg_b (R_CL);
-	count &= 0x1f;
-	while(count!=0){
-		out >>=1;
-		out |=(in&1)<<((DATA_BYTE<<3)-1);
-		in >>=1;
-		count--;
-	}
-
-	OPERAND_W(op_src,out);
-
-	print_asm("shrd" str(SUFFIX) "$cl,%s,%s", op_dest->str,op_src->str);
-}
-
-make_helper(concat(shrd_cl_, SUFFIX)) {
-	int len =concat(decode_rm2r_,SUFFIX)(eip+1);
-	do_execute_cl();
-	return len+1;
-}*/
 #endif
 
 #include "cpu/exec/template-end.h"

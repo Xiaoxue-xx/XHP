@@ -6,17 +6,18 @@
 typedef struct watchpoint {
 	int NO;
 	struct watchpoint *next;
-        int value;  
-	int newvalue;
-	char type;
-	char Enb;
-	char str[32];
-	/* TODO: Add more members if necessary */
 
+	/* TODO: Add more members if necessary */
+        char *expr;
+	uint32_t new_val;
+	uint32_t old_val;
 
 } WP;
-WP* new_wp(char *);
-void free_wp(int);
-int judge_wp();
-void print_wp();
+
+/* Add some fuctions for watchpoint */
+int set_watchpoint(char *e);
+bool delete_watchpoint(int NO);
+void list_watchpoint();
+WP* scan_watchpoint();
+
 #endif
